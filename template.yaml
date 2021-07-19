@@ -1,0 +1,93 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  twitter-api
+
+  Sample SAM Template for twitter-api
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 20
+
+Resources:
+  TwitterAppDatabase:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: twitter_feeds
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      SSESpecification:
+        SSEEnabled: true
+      Tags:
+        Description: This table stores the twitter feeds created by users
+        AppType: Serverless with dynamodb
+  TwitterAppFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: TwitterAppFunction
+      Handler: handler.App::handleRequest
+      Runtime: java8
+      MemorySize: 512
+      Policies:
+        DynamoDBCrudPolicy:
+              "TableName": "twitter_feeds"
+              "Statement" : [
+                  "Effect": "Allow",
+                  "Action": [
+                      "dynamodb:GetItem",
+                      "dynamodb:DeleteItem",
+                      "dynamodb:PutItem",
+                      "dynamodb:Scan",
+                      "dynamodb:Query",
+                      "dynamodb:UpdateItem",
+                      "dynamodb:DescribeTable"
+                    ],
+                  "Resource": {
+                    "Fn::Sub": [
+                        "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tableName}",
+                      {
+                        "tableName": {
+                          "Ref": "TableName"
+                        }
+                      }
+                    ]
+                  }
+              ]
+      Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+        Variables:
+          PARAM1: VALUE
+      Events:
+        GetTwitterFeed:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /tweets/
+            Method: get
+        GetMyTweets:
+          Type: Api
+          Properties:
+            Path: /tweets/{userId}/
+            Method: get
+        CreateMyTweet:
+          Type: Api
+          Properties:
+            Path: /tweets/create/{userId}/
+            Method: post
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  TwitterApi:
+    Description: "API Gateway endpoint URL for Prod stage for Twitter App function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tweets/"
+  TwitterAppFunction:
+    Description: "Twitter App Lambda Function ARN"
+    Value: !GetAtt TwitterAppFunction.Arn
+  TwitterAppFunctionIamRole:
+    Description: "Implicit IAM Role created for Twitter Api function"
+    Value: !GetAtt TwitterAppFunction.Arn

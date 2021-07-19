@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+    id 'io.franzbecker.gradle-lombok' version '4.0.0'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://plugins.gradle.org/m2" }
+}
+
+dependencies {
+    implementation 'com.amazonaws:aws-lambda-java-core:1.2.1'
+    implementation 'com.amazonaws:aws-lambda-java-events:3.6.0'
+    implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.12.26'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.3'
+    implementation 'org.apache.commons:commons-lang3:3.0'
+    implementation 'io.franzbecker.gradle-lombok:io.franzbecker.gradle-lombok.gradle.plugin:4.0.0'
+    testImplementation 'junit:junit:4.13.1'
+}

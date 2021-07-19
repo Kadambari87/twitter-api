@@ -1,0 +1,10 @@
+version = 0.1
+[eu-west-1]
+[eu-west-1.deploy]
+[eu-west-1.deploy.parameters]
+stack_name = "twitter-api"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-j4a3w1ce8b9h"
+s3_prefix = "twitter-api"
+region = "eu-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
