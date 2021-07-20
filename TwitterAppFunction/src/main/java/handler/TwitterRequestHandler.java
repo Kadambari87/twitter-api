@@ -1,7 +1,6 @@
 package handler;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import model.TwitterResponseModel;
 import model.UserResponseModel;
 import org.apache.commons.lang3.StringUtils;

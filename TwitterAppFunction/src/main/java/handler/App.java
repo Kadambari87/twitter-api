@@ -22,9 +22,8 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         headers.put("Access-Control-Allow-Headers", "Content-Type");
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
-        System.out.println(input);
         String responseBody = "";
-        if( input != null && input.getResource().contains("tweets/")) { // 1st API for handling tweets
+        if( input != null && input.getResource().contains("tweets")) { // 1st API for handling tweets
             String requestedHttpMethod = input.getHttpMethod();
             switch (requestedHttpMethod.toUpperCase()) {
                 case "GET":

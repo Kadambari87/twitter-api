@@ -15,5 +15,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.3'
     implementation 'org.apache.commons:commons-lang3:3.0'
     implementation 'io.franzbecker.gradle-lombok:io.franzbecker.gradle-lombok.gradle.plugin:4.0.0'
+    testImplementation 'org.mockito:mockito-inline:3.7.7'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.7.7'
     testImplementation 'junit:junit:4.13.1'
 }
