@@ -61,7 +61,7 @@ Tests are defined in the `TwitterAppFunction/src/test` folder in this project.
 
 ```bash
 twitter-api$ cd TwitterAppFunction
-HelloWorldFunction$ gradle test
+TwitterAppFunction$ gradle test
 ```
 
 ## Cleanup

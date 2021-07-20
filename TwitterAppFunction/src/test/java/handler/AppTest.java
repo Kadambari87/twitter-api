@@ -2,6 +2,7 @@ package handler;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+@Ignore
 public class AppTest {
   @Test
   public void successfulResponseForAllTweets() {

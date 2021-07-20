@@ -26,6 +26,7 @@ Resources:
       Tags:
         Description: This table stores the twitter feeds created by users
         AppType: Serverless with dynamodb
+
   TwitterAppFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -77,12 +78,17 @@ Resources:
           Properties:
             Path: /tweets/create/{userId}/
             Method: post
+        LoginToTwitter:
+          Type: Api
+          Properties:
+            Path: /twitter/login/{userId}/
+            Method: get
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  TwitterApi:
+  TweetsApi:
     Description: "API Gateway endpoint URL for Prod stage for Twitter App function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/tweets/"
   TwitterAppFunction:
