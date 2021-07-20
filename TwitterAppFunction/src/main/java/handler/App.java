@@ -22,9 +22,9 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
         headers.put("Access-Control-Allow-Headers", "Content-Type");
         APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent()
                 .withHeaders(headers);
-        System.out.println();
+        System.out.println(input);
         String responseBody = "";
-        if( input != null) {
+        if( input != null && input.getResource().contains("tweets/")) { // 1st API for handling tweets
             String requestedHttpMethod = input.getHttpMethod();
             switch (requestedHttpMethod.toUpperCase()) {
                 case "GET":
@@ -36,6 +36,24 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
                 default:
                     responseBody = "Invalid request made!";
                     break;
+            }
+        } else if( input != null && input.getResource().contains("/twitter/login/")) { // 2nd API for handling login
+            String requestedHttpMethod = input.getHttpMethod();
+            String userId = input.getPathParameters().get("userId");
+            if(userId != null || userId.length() > 0) {
+                switch (requestedHttpMethod.toUpperCase()) {
+                    case "GET":
+                        responseBody = LoginToTwitterHandler.handleGetRequest(userId);
+                        break;
+                    case "POST":
+                        responseBody = LoginToTwitterHandler.handlePostRequest(input.getPathParameters());
+                        break;
+                    default:
+                        responseBody = "Invalid request made!";
+                        break;
+                }
+            } else {
+                responseBody = "Invalid user id entered for login to twitter!";
             }
         }
         try {

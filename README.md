@@ -74,4 +74,30 @@ aws cloudformation delete-stack --stack-name twitter-api
 
 ## Resources
 
+There are two tables created with this project - 
+- twitter_users : which stores 5 users at the moment
+- twitter_feeds : which stores the tweets posted by the users
+
+## API Links
+
+Use the below links to access the backend api's using POSTMAN - 
+
+Base URL - https://rbzx7rki00.execute-api.eu-west-1.amazonaws.com/Prod/
+
+| Link        | Request Type           | Definition  |
+| ------------- |:-------------:| -----:|
+| /tweets/     | GET | This will list all tweets of all users in the application |
+| /tweets/{userId}/    | GET      |   This will list all tweets of a particular user in the application |
+| /tweets/create/{userId}/ | POST     |    This will create a tweet for a user |
+| /twitter/login/{userId}/ | GET     |    This will get user details of a valid user |
+| /twitter/login/create/{userId}/{firstName}/{lastName}/{email}/{password}/ | POST     |    This will create a tweet for a user |
+
+## IMROVEMENTS /TODOs
+
+Below are few improvements and todo's that can be made in order to make this application more secure and user-friendly  -
+- Create a domain name for Api Gateway using Route 53
+- Enable server side CORS configuration on the api in order to be used by front end client  
+- Store passwords in dynamodb with encryption
+- Add authentication to created api's
+
 See the [AWS SAM developer guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) for an introduction to SAM specification, the SAM CLI, and serverless application concepts.

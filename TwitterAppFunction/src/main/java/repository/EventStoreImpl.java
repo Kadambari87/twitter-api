@@ -33,6 +33,11 @@ public class EventStoreImpl implements EventStore<TwitterDataStore> {
         this.dynamoDBMapper.delete(object);
     }
 
+    @Override
+    public TwitterDataStore load(TwitterDataStore object) {
+        return this.dynamoDBMapper.load(object);
+    }
+
     /**
      * Loads tweets of a specific user
      * @param object storing details of requested user
