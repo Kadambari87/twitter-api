@@ -1,5 +1,7 @@
 # twitter-api
 
+Twitter API (aka tweets api) is a collection of API's that helps a user to create and list tweets.
+
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders.
 
 - TwitterAppFunction/src/main - Code for the application's Lambda function.
@@ -7,7 +9,7 @@ This project contains source code and supporting files for a serverless applicat
 - TwitterAppFunction/src/test - Unit tests for the application code. 
 - template.yaml - A template that defines the application's AWS resources.
 
-The application uses several AWS resources, including Lambda functions and an API Gateway API. These resources are defined in the `template.yaml` file in this project.
+The application uses several AWS resources, including Lambda functions, DynamoDB and an API Gateway API. These resources are defined in the `template.yaml` file in this project.
 
 ## Deploy the sample application
 
@@ -75,7 +77,7 @@ aws cloudformation delete-stack --stack-name twitter-api
 ## Resources
 
 There are two tables created with this project - 
-- twitter_users : which stores 5 users at the moment
+- twitter_users : which stores 6 users at the moment
 - twitter_feeds : which stores the tweets posted by the users
 
 ## API Links
